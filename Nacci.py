@@ -5,7 +5,7 @@ How to use: Enter the position of the Fibonacci number you want, e.g. "7" would 
 '''
 import time #(c) Time package to do basic timing of the iterative and recursive method.
 
-#(a)
+#(a) Recursive method for the Fibonacci sequence
 def nacci_rec(n):
     if n == 0: #The number at index 0 is 0
         return 0
@@ -16,7 +16,7 @@ def nacci_rec(n):
     else: 
         return nacci_rec(n-1) + nacci_rec(n-2) # Return the sum of 2 previous Fibonacci numbers.
 
-#(b)
+#(b) Iterative method for the Fibonacci sequence
 def nacci_iter(n):
     Fibbo = [0, 1] #List with the first two Fibbonaci numbers
     
