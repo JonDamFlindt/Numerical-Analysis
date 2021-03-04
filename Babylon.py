@@ -8,15 +8,22 @@ Note that this program is designed to run in the terminal/command prompt.
 class ComplexError(Exception): #Custom error for a<0.
     pass
 
-def babylon_sqrt(a, x, n=0): #Recursive method for the Babylonian square root.
+class LoopError(Exception): #Custom error for infinite loops.
+    pass
+
+def babylon_sqrt(a, x, n=0, max_n=1000): #Recursive method for the Babylonian square root.
     fx = 0.5*(a/x + x)
     
     if abs(fx-x) < 1.0e-10: # Criteria for stopping the recursive loop.
         if fx.is_integer(): # Checks if the float is an integer
             return int(fx), n # If it is, return in integer form
         return fx, n # Otherwise return in float form
-    n += 1 #Criteria not met correct, increase counter.
-    return babylon_sqrt(a, fx, n) #Iterate
+    
+    if n < max_n:
+        n+=1 #Criteria not met correct, increase counter.
+        return babylon_sqrt(a, fx, n) #Iterate
+    else:
+        raise LoopError
 
 while True: #Program keeps running until terminated by user.
     user = input("Please enter a number and your guess for its root, respectively, seperated by a comma. To exit, hit CTRL+C: ")
@@ -36,3 +43,6 @@ while True: #Program keeps running until terminated by user.
 
     except ComplexError:
         print("This program cannot calculate complex roots. If you have another number you want the square root of, try again.")
+    
+    except LoopError:
+        print("The program could not find a good approximation of the root after 1000 iterations.")
